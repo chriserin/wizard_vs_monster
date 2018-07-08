@@ -1,0 +1,11 @@
+
+.wizard {
+  margin: 4rem;
+  height: 10rem;
+  width: 10rem;
+}
+
+.wizard img {
+  width: 100%;
+  height: 100%;
+}
