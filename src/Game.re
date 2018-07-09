@@ -1,5 +1,6 @@
 
 [@bs.module] external snakesvg : string = "./monster-snake.svg";
+[@bs.module] external bearsvg : string = "./monster-bear.svg";
 
 type spellAction =
   | WizardSpell(string)
@@ -23,19 +24,6 @@ type result =
   | DeadMonster(string)
   | HurtMonster(string)
 
-let callSpell = (spell, wizard, monster) => {
-  let hurtMonster = monster.spellAgainst(spell, monster);
-  let result = if (hurtMonster.hitpoints <= 0) {
-    DeadMonster("You killed it")
-  } else if (hurtMonster.hitpoints < monster.hitpoints) {
-    HurtMonster("You hurt it")
-  } else {
-    None
-  };
-
-  (wizard, hurtMonster, result)
-}
-
 let monsters:list(monster) = [
   {
     name: "Snake",
@@ -45,5 +33,27 @@ let monsters:list(monster) = [
       let damage = Spells.damage(spell);
       {...monster, hitpoints: monster.hitpoints - damage};
     }
+  },
+  {
+    name: "Bear",
+    image: bearsvg,
+    hitpoints: 40,
+    spellAgainst: (spell, monster) => {
+      let damage = Spells.damage(spell);
+      {...monster, hitpoints: monster.hitpoints - damage};
+    }
   }
 ]
+
+let callSpell = (spell, wizard, monster) => {
+  let hurtMonster = monster.spellAgainst(spell, monster);
+
+  if (hurtMonster.hitpoints <= 0) {
+    let hurtMonster = List.hd(List.tl(monsters));
+    (wizard, hurtMonster, DeadMonster("You killed it"));
+  } else if (hurtMonster.hitpoints < monster.hitpoints) {
+    (wizard, hurtMonster, HurtMonster("You hurt it"));
+  } else {
+    (wizard, hurtMonster, None);
+  };
+}
