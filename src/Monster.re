@@ -1,5 +1,5 @@
 
-[@bs.module] external picture : string = "./monster-picture.svg";
+[@bs.module] external picture : string = "./monster-snake.svg";
 
 [%bs.raw {|require('./Monster.css')|}];
 
@@ -13,7 +13,7 @@ let make = (~monster:Game.monster, _children) => {
     <div className="monster">
       <div>(ReasonReact.string(name))</div>
       <div>(ReasonReact.string(Printf.sprintf("Hitpoints: %i", monster.hitpoints)))</div>
-      <img src=picture />
+      <img src=(monster.image) />
     </div>;
   }
 };

@@ -4,12 +4,13 @@
 
 type action =
   | Fire
-  | Spell(string)
+  | Spell(Spells.spell)
 
 
 type state = {
   wizard: Game.wizard,
-  monster: Game.monster
+  monster: Game.monster,
+  result: Game.result
 }
 
 let component = ReasonReact.reducerComponent("App");
@@ -20,19 +21,18 @@ let make = (~message, _children) => {
     wizard: {
       age: 132,
       name: "Owain Gyn Dwr",
-      hitpoints: 1000
+      hitpoints: 1000,
+      spells: [Spells.fire],
     },
-    monster: {
-      name: "Snake",
-      hitpoints: 20
-    }
+    monster: List.hd(Game.monsters),
+    result: None
   },
   reducer: (action, state:state) => 
     switch (action) {
     | Fire => ReasonReact.Update(state)
-    | Spell(name) => {
-        let ( wizard, monster ) = Game.callSpell(Game.WizardSpell(name), state.wizard, state.monster);
-        ReasonReact.Update({...state, wizard, monster})
+    | Spell(spell) => {
+        let ( wizard, monster, result) = Game.callSpell(spell, state.wizard, state.monster);
+        ReasonReact.Update({...state, wizard, monster, result})
       }
     },
   render: self => {
@@ -43,10 +43,13 @@ let make = (~message, _children) => {
         <img src=logo className="App-logo" alt="logo" />
         <h2> (ReasonReact.string("Wizard vs Monster")) </h2>
       </div>
-      <Wizard wizard=(theWiz) onSpell=((spellName) => self.send(Spell(spellName)) )>
-      </Wizard>
-      <Monster monster=(self.state.monster)>
-      </Monster>
+      <div>
+        <Wizard wizard=(theWiz) onSpell=((spellName) => self.send(Spell(spellName)) )>
+        </Wizard>
+        <Monster monster=(self.state.monster)>
+        </Monster>
+      </div>
+      <Result result=(self.state.result) monster=(self.state.monster) />
     </div>;
   },
 };
