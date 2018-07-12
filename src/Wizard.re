@@ -18,7 +18,7 @@ let make = (~wizard:Game.wizard, ~onSpell, _children) => {
       <div>(ReasonReact.string(name))</div>
       <div>(ReasonReact.string(Printf.sprintf("Age: %i", wizard.age)))</div>
       <img src=picture />
-      (ReasonReact.arrayToElement(Array.of_list(spells)))
+      (ReasonReact.array(Array.of_list(spells)))
     </div>;
   }
 };

@@ -23,6 +23,7 @@ let make = (~message, _children) => {
       name: "Owain Gyn Dwr",
       hitpoints: 1000,
       spells: [Spells.fire],
+      monsterKills: 0,
     },
     monster: List.hd(Game.monsters),
     result: None
