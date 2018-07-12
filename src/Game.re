@@ -25,6 +25,7 @@ type result =
   | None
   | DeadMonster(string)
   | HurtMonster(string)
+  | NewMonster(string)
 
 let monsters:list(monster) = [
   {
@@ -58,14 +59,15 @@ let monsters:list(monster) = [
 
 let callSpell = (spell, wizard, monster) => {
   let hurtMonster = monster.spellAgainst(spell, monster);
+  let results = [];
 
   if (hurtMonster.hitpoints <= 0) {
     let uppedWizard = {...wizard, monsterKills: wizard.monsterKills + 1};
     let nextMonster = List.nth(monsters, uppedWizard.monsterKills);
-    (uppedWizard, nextMonster, DeadMonster("You killed it"));
+    (uppedWizard, nextMonster, [NewMonster("Here comes " ++ nextMonster.name ++ "!!"), DeadMonster("You killed the " ++ monster.name)]);
   } else if (hurtMonster.hitpoints < monster.hitpoints) {
-    (wizard, hurtMonster, HurtMonster("You hurt it"));
+    (wizard, hurtMonster, [HurtMonster("You hurt it with " ++ spell.name)]);
   } else {
-    (wizard, hurtMonster, None);
+    (wizard, hurtMonster, [None]);
   };
 }

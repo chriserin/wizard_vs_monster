@@ -10,7 +10,7 @@ type action =
 type state = {
   wizard: Game.wizard,
   monster: Game.monster,
-  result: Game.result
+  results: list(Game.result)
 }
 
 let component = ReasonReact.reducerComponent("App");
@@ -26,14 +26,14 @@ let make = (~message, _children) => {
       monsterKills: 0,
     },
     monster: List.hd(Game.monsters),
-    result: None
+    results: [None]
   },
   reducer: (action, state:state) => 
     switch (action) {
     | Fire => ReasonReact.Update(state)
     | Spell(spell) => {
-        let ( wizard, monster, result) = Game.callSpell(spell, state.wizard, state.monster);
-        ReasonReact.Update({...state, wizard, monster, result})
+        let ( wizard, monster, results) = Game.callSpell(spell, state.wizard, state.monster);
+        ReasonReact.Update({...state, wizard, monster, results: List.append(results, state.results)})
       }
     },
   render: self => {
@@ -50,7 +50,7 @@ let make = (~message, _children) => {
         <Monster monster=(self.state.monster)>
         </Monster>
       </div>
-      <Result result=(self.state.result) monster=(self.state.monster) />
+      <Result results=(self.state.results) monster=(self.state.monster) />
     </div>;
   },
 };

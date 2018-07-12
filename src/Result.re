@@ -2,19 +2,24 @@
 
 let component = ReasonReact.statelessComponent("Monster");
 
-let make = (~result:Game.result, ~monster:Game.monster, _children) => {
+let make = (~results:list(Game.result), ~monster:Game.monster, _children) => {
   ...component,
   render: self => {
     let name:string = monster.name;
 
-    let message = switch(result) {
-    | None => "Hey that monster is looking at you sorta funny."
-    | HurtMonster(description) => description
-    | DeadMonster(description) => description
-    };
+    let messageDivs = List.map((result:Game.result) => {
+      let message = switch(result) {
+      | None => "Hey that monster is looking at you sorta funny."
+      | HurtMonster(description) => description
+      | DeadMonster(description) => description
+      | NewMonster(description) => description
+      };
+
+      <div>(ReasonReact.string(message))</div>
+    }, results);
 
     <div className="result">
-      <div>(ReasonReact.string(message))</div>
+      (ReasonReact.array(Array.of_list(messageDivs)))
     </div>;
   }
 };
