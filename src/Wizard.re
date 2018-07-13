@@ -11,7 +11,7 @@ let make = (~wizard:Game.wizard, ~onSpell, _children) => {
     let name:string = wizard.name;
 
     let spells = List.map((spell:Spells.spell) => {
-      <div onClick=((_event) => onSpell(spell))>(ReasonReact.string(spell.name))</div>
+      <div className="spell" onClick=((_event) => onSpell(spell))>(ReasonReact.string(spell.name))</div>
     }, wizard.spells);
 
     <div className="wizard">
