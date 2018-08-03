@@ -15,8 +15,9 @@ let make = (~wizard:Game.wizard, ~onSpell, _children) => {
     }, wizard.spells);
 
     <div className="wizard">
-      <div>(ReasonReact.string(name))</div>
-      <div>(ReasonReact.string(Printf.sprintf("Age: %i", wizard.age)))</div>
+      <div className="name">(ReasonReact.string(name))</div>
+      <Stat name="Age" value={string_of_int(wizard.age)}/>
+      <Stat name="Hitpoints" value={string_of_int(wizard.hitpoints)}/>
       <img src=picture />
       (ReasonReact.array(Array.of_list(spells)))
     </div>;

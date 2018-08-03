@@ -1,0 +1,12 @@
+
+.stat {
+  width: 100%;
+  text-align: left;
+  margin-left: 2rem;
+}
+
+.stat .stat-name {
+  display: inline-block;
+  font-weight: bold;
+  min-width: 50%;
+}

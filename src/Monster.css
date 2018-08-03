@@ -1,5 +1,23 @@
 .monster {
-  height: 10rem;
-  width: 10rem;
+  margin: 4rem;
+  height: 12rem;
+  width: 12rem;
   display: inline-block;
+}
+
+.monster .name {
+  margin: 0 -100% 0 -100%;
+  font-family: 'Cormorant Unicase', serif;
+  font-weight: bold;
+  font-size: 20pt;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.monster img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  padding: 1rem;
+  background: radial-gradient(closest-side, #e66465, transparent);
 }

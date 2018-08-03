@@ -1,0 +1,9 @@
+.results {
+  width: 32rem;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.results-container {
+  position: relative;
+}

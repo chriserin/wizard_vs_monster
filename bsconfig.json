@@ -5,7 +5,7 @@
   "reason": {
     "react-jsx": 2
   },
-  "bsc-flags": ["-bs-super-errors"],
+  "bsc-flags": ["-w -8", "-bs-super-errors"],
   "refmt": 3,
   "package-specs": {
     "module": "es6",

@@ -16,3 +16,9 @@
 .App-intro {
   font-size: large;
 }
+
+.App .battle-board {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}

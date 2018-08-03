@@ -1,0 +1,18 @@
+.result .result-monster:before {
+  content: " ";
+}
+
+.result .result-monster:after {
+  content: " ";
+}
+
+.result .result-monster {
+  font-weight: 900;
+  font-family: 'Cormorant Unicase', serif;
+  text-transform: uppercase;
+  border-bottom: solid 1px green;
+}
+
+.result {
+  margin: 6px 0;
+}

@@ -2,9 +2,16 @@
 
 [@bs.module] external logo : string = "./wizard-logo.svg";
 
+[@bs.module "styled-components"] [@bs.scope("default")] external div : string = "div";
+
+let styledReason = div;
+
+Js.log(styledReason)
+
 type action =
   | Fire
   | Spell(Spells.spell)
+  | Activity
 
 
 type state = {
@@ -15,7 +22,7 @@ type state = {
 
 let component = ReasonReact.reducerComponent("App");
 
-let make = (~message, _children) => {
+let make = (_children) => {
   ...component,
   initialState: () => {
     wizard: {
@@ -26,14 +33,27 @@ let make = (~message, _children) => {
       monsterKills: 0,
     },
     monster: List.hd(Game.monsters),
-    results: [None]
+    results: [NewMonster(List.hd(Game.monsters))]
   },
   reducer: (action, state:state) => 
     switch (action) {
     | Fire => ReasonReact.Update(state)
     | Spell(spell) => {
-        let ( wizard, monster, results) = Game.callSpell(spell, state.wizard, state.monster);
-        ReasonReact.Update({...state, wizard, monster, results: List.append(results, state.results)})
+        let ( wizard, monster, spellResults) = Game.callSpell(spell, state.wizard, state.monster);
+
+        let (wizard, attackResults) = if (!List.exists((result) => {
+          switch(result) {
+          | Game.DeadMonster(_) => true
+          | _ => false
+          };
+        }, spellResults)) {
+          let (wizard, attackResults) = Game.monsterAttack(wizard, monster);
+          (wizard, List.map((attackResult) => Game.MonsterAttack(attackResult), attackResults));
+        } else {
+          (wizard, [])
+        };
+
+        ReasonReact.Update({wizard, monster, results: List.concat([attackResults, spellResults, state.results])});
       }
     },
   render: self => {
@@ -44,13 +64,13 @@ let make = (~message, _children) => {
         <img src=logo className="App-logo" alt="logo" />
         <h2> (ReasonReact.string("Wizard vs Monster")) </h2>
       </div>
-      <div>
+      <div className="battle-board">
         <Wizard wizard=(theWiz) onSpell=((spellName) => self.send(Spell(spellName)) )>
         </Wizard>
         <Monster monster=(self.state.monster)>
         </Monster>
       </div>
-      <Result results=(self.state.results) monster=(self.state.monster) />
+      <Results results=(self.state.results) monster=(self.state.monster) />
     </div>;
   },
 };
