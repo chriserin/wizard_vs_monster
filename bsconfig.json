@@ -5,7 +5,8 @@
   "reason": {
     "react-jsx": 2
   },
-  "bsc-flags": ["-w -8", "-bs-super-errors"],
+  "bsc-flags": ["-bs-super-errors"],
+  "ppx-flags": ["./node_modules/ppx_test/ppx"],
   "refmt": 3,
   "package-specs": {
     "module": "es6",

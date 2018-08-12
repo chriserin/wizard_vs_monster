@@ -11,7 +11,6 @@ Js.log(styledReason)
 type action =
   | Fire
   | Spell(Spells.spell)
-  | Activity
 
 
 type state = {
@@ -21,6 +20,11 @@ type state = {
 }
 
 let component = ReasonReact.reducerComponent("App");
+
+module GreenDiv = [%style "
+  background: green;
+  color: blue;
+"]
 
 let make = (_children) => {
   ...component,
@@ -59,7 +63,7 @@ let make = (_children) => {
   render: self => {
     let theWiz = self.state.wizard;
 
-    <div className="App">
+    <GreenDiv className="App">
       <div className="App-header">
         <img src=logo className="App-logo" alt="logo" />
         <h2> (ReasonReact.string("Wizard vs Monster")) </h2>
@@ -71,6 +75,6 @@ let make = (_children) => {
         </Monster>
       </div>
       <Results results=(self.state.results) monster=(self.state.monster) />
-    </div>;
+    </GreenDiv>;
   },
 };
