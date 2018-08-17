@@ -1,5 +1,3 @@
-[%bs.raw {|require('./App.css')|}];
-
 [@bs.module] external logo : string = "./wizard-logo.svg";
 
 [@bs.module "styled-components"] [@bs.scope("default")] external div : string = "div";
@@ -21,9 +19,25 @@ type state = {
 
 let component = ReasonReact.reducerComponent("App");
 
-module GreenDiv = [%style "
-  background: green;
-  color: blue;
+module App = [%style "
+  text-align: center;
+"]
+
+module AppHeader = [%style"
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+
+  img {
+    height: 80px;
+  }
+"]
+
+module BattleBoard = [%style"
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
 "]
 
 let make = (_children) => {
@@ -63,18 +77,18 @@ let make = (_children) => {
   render: self => {
     let theWiz = self.state.wizard;
 
-    <GreenDiv className="App">
-      <div className="App-header">
-        <img src=logo className="App-logo" alt="logo" />
+    <App>
+      <AppHeader>
+        <img src=logo alt="logo" />
         <h2> (ReasonReact.string("Wizard vs Monster")) </h2>
-      </div>
-      <div className="battle-board">
+      </AppHeader>
+      <BattleBoard>
         <Wizard wizard=(theWiz) onSpell=((spellName) => self.send(Spell(spellName)) )>
         </Wizard>
         <Monster monster=(self.state.monster)>
         </Monster>
-      </div>
+      </BattleBoard>
       <Results results=(self.state.results) monster=(self.state.monster) />
-    </GreenDiv>;
+    </App>;
   },
 };

@@ -16,7 +16,7 @@ let declare_style loc style =
 let make_function (loc : Location.t) : Parsetree.structure_item = 
   Str.value Nonrecursive
      [Vb.mk (Pat.var {txt = "make"; loc=loc})
-     (Exp.fun_ "className" None
+     (Exp.fun_ "?className" (Some (Exp.constant (Const_string ("", None))))
            (Pat.var {txt = "className"; loc=loc})
            (Exp.fun_ "" None
               (Pat.var {txt = "children"; loc=loc})

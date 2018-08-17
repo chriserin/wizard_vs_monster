@@ -6,7 +6,9 @@ type jsProps = {
   className: string,
 };
 
+
 let make = (~className, children, style) => {
+
   let reactClass = div([| style |]);
 
   ReasonReact.wrapJsForReason(
