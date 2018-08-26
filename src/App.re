@@ -40,6 +40,8 @@ module BattleBoard = [%style"
   justify-content: space-around;
 "]
 
+module GreenDiv = Style.GreenDiv;
+
 let make = (_children) => {
   ...component,
   initialState: () => {
@@ -78,6 +80,9 @@ let make = (_children) => {
     let theWiz = self.state.wizard;
 
     <App>
+      <GreenDiv valueA="pink" valueB="Y">
+        (ReasonReact.string("Hello"))
+      </GreenDiv>
       <AppHeader>
         <img src=logo alt="logo" />
         <h2> (ReasonReact.string("Wizard vs Monster")) </h2>

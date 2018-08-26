@@ -1,0 +1,12 @@
+### Starting build.
+# Target: styled_components_ppx/ppx_test.ml.depends, tags: { extension:ml, file:styled_components_ppx/ppx_test.ml, ocaml, ocamldep, quiet }
+/Users/chriserin/.opam/4.02.3/bin/ocamldep.opt -modules styled_components_ppx/ppx_test.ml > styled_components_ppx/ppx_test.ml.depends
+# Target: styled_components_ppx/simple.ml.depends, tags: { extension:ml, file:styled_components_ppx/simple.ml, ocaml, ocamldep, quiet }
+/Users/chriserin/.opam/4.02.3/bin/ocamldep.opt -modules styled_components_ppx/simple.ml > styled_components_ppx/simple.ml.depends
+# Target: styled_components_ppx/simple.cmo, tags: { byte, compile, extension:cmo, extension:ml, file:styled_components_ppx/simple.cmo, file:styled_components_ppx/simple.ml, implem, ocaml, quiet }
+/Users/chriserin/.opam/4.02.3/bin/ocamlc.opt -c -I styled_components_ppx -o styled_components_ppx/simple.cmo styled_components_ppx/simple.ml
++ /Users/chriserin/.opam/4.02.3/bin/ocamlc.opt -c -I styled_components_ppx -o styled_components_ppx/simple.cmo styled_components_ppx/simple.ml
+File "styled_components_ppx/simple.ml", line 2, characters 5-15:
+Error: Unbound module Ast_helper
+Command exited with code 2.
+# Compilation unsuccessful.
